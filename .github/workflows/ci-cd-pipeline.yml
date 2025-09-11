@@ -39,21 +39,8 @@ jobs:
         pip install -r requirements.txt
         pip install pytest httpx
         
-    - name: Start API server
-      run: |
-        python fast_api.py &
-        sleep 10
-        
-    - name: Test API endpoints
-      run: |
-        curl -f http://localhost:6670/ || exit 1
-        response=$(curl -s "http://localhost:6670/predict?size=180&nb_rooms=3&garden=true")
-        if echo "$response" | grep -q "y_pred"; then
-          echo "Tests API réussis"
-        else
-          echo "Tests API échoués"
-          exit 1
-        fi
+    - name: Test API with TestClient
+      run: python test_api.py
 
   build:
     needs: test
