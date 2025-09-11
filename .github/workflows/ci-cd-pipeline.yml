@@ -40,29 +40,7 @@ jobs:
         pip install pytest httpx
         
     - name: Test API endpoints
-      run: |
-        python -c "
-        import sys
-        sys.path.append('.')
-        
-        from fastapi.testclient import TestClient
-        from fast_api import app
-        
-        client = TestClient(app)
-        
-        response = client.get('/')
-        assert response.status_code == 200
-        print('Endpoint racine OK')
-        
-        response = client.post('/predict?size=180&nb_rooms=3&garden=true')
-        assert response.status_code == 200
-        data = response.json()
-        assert 'y_pred' in data
-        assert isinstance(data['y_pred'], (int, float))
-        print('Endpoint prédiction OK')
-        
-        print('Tous les tests passés avec succès!')
-        "
+      run: python test_api.py
 
   build:
     needs: test
