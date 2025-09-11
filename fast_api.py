@@ -14,7 +14,7 @@ class TextInput(BaseModel):
 
 @app.get("/")
 def read_root():
-    return {"message": "Bonjour, lancez le serveur avec : 'uvicorn fast_api:app --reload'"}
+    return {"message": "Level 4 - BERT + Regression API", "version": "2.0", "endpoints": ["/predict", "/sentiment"]}
 
 @app.post("/predict")
 def predict(size: int, nb_rooms: int, garden: bool):
